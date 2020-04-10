@@ -11,6 +11,8 @@ import com.book.pojo.Category;
 import com.book.tools.MyBatisUtil;
 
 public class BookService {
+	// 每页数量
+	private final Integer PAGESIZE = 5;
 	/**
 	 * 添加新的分类
 	 * @param category
@@ -72,6 +74,49 @@ public class BookService {
 		sqlSession.commit();
 		sqlSession.close();
 		return result;
+	}
+	/**
+	 * 查询书籍信息
+	 * @return 书籍信息列表
+	 */
+	public List<BookInfo> listBook(Integer currentPage){
+		SqlSession sqlSession = MyBatisUtil.open();
+		List<BookInfo> result = sqlSession.getMapper(BookInfoMapper.class)
+				.listBook((currentPage-1)*PAGESIZE,PAGESIZE);
+		sqlSession.close();
+		return result;
+	}
+	/**
+	 * 返回书籍数量
+	 * @return
+	 */
+	public Integer bookCount() {
+		SqlSession sqlSession = MyBatisUtil.open();
+		int result = sqlSession.getMapper(BookInfoMapper.class).bookCount();
+		sqlSession.close();
+		return result;
+	}
+	/**
+	 * 返回书籍分页导航字符串
+	 * @param currentPage--当前页码
+	 * @param count--总共书籍数量
+	 * @return
+	 */
+	public String bookNavStr(Integer currentPage,Integer count) {
+		// 求得总共页数
+		Integer countPage = count%PAGESIZE==0?count/PAGESIZE:count/PAGESIZE+1;
+		if(currentPage==1 && countPage!=1) {
+			return "<span class='fr'><a href='book_mgr?currentPage=1'>首页</a>&nbsp;<a>上一页</a>&nbsp;<a href='book_mgr?currentPage=2'>下一页</a>&nbsp;<a href='book_mgr?currentPage="+countPage+"'>尾页</a>&nbsp;</span>"; 
+		}
+		else if(currentPage==countPage && countPage!=1) {
+			return "<span class='fr'><a href='book_mgr?currentPage=1'>首页</a>&nbsp;<a href='book_mgr?currentPage="+(currentPage-1)+"'>上一页</a>&nbsp;<a>下一页</a>&nbsp;<a href='book_mgr?currentPage="+countPage+"'>尾页</a>&nbsp;</span>";
+		}
+		else if(countPage == 1) {
+			return "<span class='fr'><a href='book_mgr?currentPage=1'>首页</a>&nbsp;<a>上一页</a>&nbsp;<a>下一页</a>&nbsp;<a href='book_mgr?currentPage="+countPage+"'>尾页</a>&nbsp;</span>";
+		}
+		else {
+			return "<span class='fr'><a href='book_mgr?currentPage=1'>首页</a>&nbsp;<a href='book_mgr?currentPage="+(currentPage-1)+"'>上一页</a>&nbsp;<a href='book_mgr?currentPage="+(currentPage+1)+"'>下一页</a>&nbsp;<a href='book_mgr?currentPage="+countPage+"'>尾页</a>&nbsp;</span>";
+		}
 	}
 }
 

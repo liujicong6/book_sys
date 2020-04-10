@@ -3,6 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.book.dao.BookInfoMapper">
+	<resultMap type="BookInfo" id="bookList">
+		<id property="id" column="id"/>	<!-- 使用结果集中的id填充book属性id -->
+		<association property="category" javaType="Category">
+			<id property="id" column="cid"/>	<!-- 使用结果集中的cid填充category的id属性 -->
+		</association>
+	</resultMap>
 	<!-- 添加书籍到数据库中 -->
 	<insert id="addNewBook" parameterType="BookInfo">
 		<!-- #{category.id}？访问BookInfo对象的category属性，再访问category的id属性 -->
@@ -10,6 +16,17 @@
 			values(#{bookName},#{author},#{category.id},#{publisher},
 					#{price},#{photo})
 	</insert>
+	<!-- 查询书籍信息（分页） -->
+	<select id="listBook" resultMap="bookList">
+		select system_book_info.*,system_book_category.id cid,category
+			from system_book_info left join system_book_category
+			on system_book_info.categoryId=system_book_category.id
+			limit #{from},#{pageSize}
+	</select>
+	<!-- 查询书籍数量 -->
+	<select id="bookCount" resultType="int">
+		select count(id) from system_book_info;
+	</select>
 </mapper>
 
 
