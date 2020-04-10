@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
  <!DOCTYPE HTML>
 <html>
   <head>
@@ -20,14 +21,10 @@
     			<div class="box-left">
     				<div class="box-title">分类畅销榜</div>
     				<div class="box-content">
-						<p>·<a href="#">全部</a></p>
-    					<p>·<a href="#">文学</a></p>
-    					<p>·<a href="#">小说</a></p>
-    					<p>·<a href="#">青春文学</a></p>
-    					<p>·<a href="#">旅游</a></p>
-    					<p>·<a href="#">哲学</a></p>
-    					<p>·<a href="#">百科</a></p>
-    					<p>·<a href="#">恐怖小说</a></p>    					
+						<p>·<a href="#?id=0">全部</a></p>
+						<c:forEach items="${categories }" var="catg">
+						<p>·<a href="#?id=${catg.id }">${catg.category}</a></p>
+						</c:forEach> 					
     				</div>
     			</div>
     		</div>

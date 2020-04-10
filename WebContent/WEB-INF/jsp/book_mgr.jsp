@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <!DOCTYPE HTML>
 <html>
   <head>
     <title>图书网后台管理系统</title>
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/mgr.css"/>
+    <script src="${pageContext.request.contextPath}/static/js/common.js"></script>
   </head>  
   <body>
     <div id="container">
@@ -54,19 +56,21 @@
 			</div>
 			<div class="section-right">
 				<h2>添加图书信息</h2>
-				<form action="" method="post">
-					<p>图书书名：<input type="text" name="btitle"  /></p>
-					<p>图书作者：<input type="text" name="bauthor"  /></p>
+				<p style="color:red;">${message }</p>
+				<form action="${pageContext.request.contextPath}/add_book" method="post" enctype="multipart/form-data">
+					<p>图书书名：<input type="text" name="bookName"  /></p>
+					<p>图书作者：<input type="text" name="author"  /></p>
 					<p>图书分类：
-						<select name="btypeid">
-							<option value="1">小说</option>
-							<option value="2">历史</option>  
-							<option value="5">玄幻</option>  
+						<select name="categoryId">
+							<c:forEach items="${categories }" var="catg">
+							<option value="${catg.id }">${catg.category }</option>
+							</c:forEach> 
 						</select>
 					</p>
-					<p>图书售价：<input type="text" name="bprice"  /></p>
-					<p>图书出版社：<input type="text" name="bpublisher"  /></p>   
-					<p>图书图片：<input type="file" name="bphoto"  /></p>    				 				
+					<p>图书售价：<input type="number" name="price" step="0.01" /></p>
+					<p>图书出版社：<input type="text" name="publisher"  /></p>   
+					<p><img style="display:none;" id="preview"/></p>
+					<p>图书图片：<input type="file" name="photo" onchange="viewImage(this)"  /></p>    				 				
 					<p><input type="submit" value=" 保 存 "  /></p>
 				</form>
 			</div>			
