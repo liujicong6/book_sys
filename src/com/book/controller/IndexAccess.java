@@ -29,10 +29,21 @@ public class IndexAccess extends HttpServlet {
 			sCurrentPage = "1";
 		}
 		Integer currentPage = Integer.valueOf(sCurrentPage);
+		// 获取分类名称
+		String category = request.getParameter("category");
+		if(StringUtils.isNullOrEmpty(category)) {
+			Object oCategory = request.getSession().getAttribute("categoryMessage");
+			if(oCategory != null) {
+				category = oCategory.toString();
+			}
+			else {
+				category = "全部";
+			}
+		}
 		// 获取所有书籍信息
-		List<BookInfo> books = bookService.listBook(currentPage);
+		List<BookInfo> books = bookService.listBook(currentPage,category);
 		// 获取书籍数量
-		Integer count = bookService.bookCount();
+		Integer count = bookService.bookCount(category);
 		// 调用服务，生成分页导航字符串
 		String navStr = bookService.bookNavStr(currentPage, count);
 		// 获取总页数
@@ -45,6 +56,8 @@ public class IndexAccess extends HttpServlet {
 		request.setAttribute("countPage",countPage);
 		request.setAttribute("pageSize", bookService.PAGESIZE);
 		request.setAttribute("navStr", navStr);
+		// 设置显示分类名称（放入session中）
+		request.getSession().setAttribute("categoryMessage", category);
 		
 		request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request,response);
 	}

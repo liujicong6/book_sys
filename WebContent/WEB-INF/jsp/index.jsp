@@ -21,16 +21,16 @@
     			<div class="box-left">
     				<div class="box-title">分类畅销榜</div>
     				<div class="box-content">
-						<p>·<a href="#?id=0">全部</a></p>
+						<p>·<a href="index?category=全部">全部</a></p>
 						<c:forEach items="${categories }" var="catg">
-						<p>·<a href="#?id=${catg.id }">${catg.category}</a></p>
+						<p>·<a href="index?category=${catg.category }">${catg.category}</a></p>
 						</c:forEach> 					
     				</div>
     			</div>
     		</div>
     		<div class="section-right">
     			<div class="box-right">
-    				<div class="box-title">您目前浏览的图书【搜索条件——分类：全部；书名：无】</div>
+    				<div class="box-title">您目前浏览的图书【搜索条件——分类：${empty categoryMessage?"全部":categoryMessage }；书名：无】</div>
     				<div class="paging" style="border-bottom: 1px solid  #64A26F; color: #006666; ">
     					 ${navStr }	
     					 共有图书${count}种，分${countPage}页显示，每页显示${pageSize}个商品
@@ -38,12 +38,14 @@
     				<c:forEach items="${books}" var="book">
     				<div class="box-item">
     					<div class="img-box">
-    						<c:if test="${empty book.photo }">
-    							<img src="${pageContext.request.contextPath}/static/file/xxx.jpg" />
-    						</c:if>
-    						<c:if test="${!empty book.photo }">
-    							<img src="${pageContext.request.contextPath}/static/file/${book.photo}" />
-    						</c:if>
+    						<c:choose>
+    							<c:when test="${empty book.photo }">
+    								<img src="${pageContext.request.contextPath}/static/file/xxx.jpg" />
+    							</c:when>
+    							<c:otherwise>
+    								<img src="${pageContext.request.contextPath}/static/file/${book.photo}" />
+    							</c:otherwise>
+    						</c:choose>
     					</div>
     					<div class="info-box">
     						<span style="font-size: 14px; ">

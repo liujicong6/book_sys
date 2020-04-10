@@ -77,22 +77,26 @@ public class BookService {
 	}
 	/**
 	 * 查询书籍信息
+	 * @param currentPage--当前页
+	 * @param category--分类名称
 	 * @return 书籍信息列表
 	 */
-	public List<BookInfo> listBook(Integer currentPage){
+	public List<BookInfo> listBook(Integer currentPage,String category){
 		SqlSession sqlSession = MyBatisUtil.open();
 		List<BookInfo> result = sqlSession.getMapper(BookInfoMapper.class)
-				.listBook((currentPage-1)*PAGESIZE,PAGESIZE);
+				.listBook((currentPage-1)*PAGESIZE,PAGESIZE,category);
 		sqlSession.close();
 		return result;
 	}
 	/**
 	 * 返回书籍数量
+	 * @param category--分类名称
 	 * @return
 	 */
-	public Integer bookCount() {
+	public Integer bookCount(String category) {
 		SqlSession sqlSession = MyBatisUtil.open();
-		int result = sqlSession.getMapper(BookInfoMapper.class).bookCount();
+		int result = sqlSession.getMapper(BookInfoMapper.class)
+				.bookCount(category);
 		sqlSession.close();
 		return result;
 	}

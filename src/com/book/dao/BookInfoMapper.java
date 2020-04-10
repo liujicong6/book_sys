@@ -17,15 +17,18 @@ public interface BookInfoMapper {
 	 * 查询书籍信息
 	 * @param from-起始索引（0开始）
 	 * @param pageSize-每页数量
+	 * @param category--分类名称
 	 * @return 书籍信息列表
 	 */
 	List<BookInfo> listBook(
-			@Param("from") Integer from,@Param("pageSize") Integer pageSize);
+			@Param("from") Integer from,@Param("pageSize") Integer pageSize,
+			@Param("category") String category);
 	/**
 	 * 返回书籍数量
+	 * @param category--分类名称
 	 * @return
 	 */
-	Integer bookCount();
+	Integer bookCount(@Param("category") String category);
 }
 
 

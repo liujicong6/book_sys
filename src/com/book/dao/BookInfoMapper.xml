@@ -21,11 +21,23 @@
 		select system_book_info.*,system_book_category.id cid,category
 			from system_book_info left join system_book_category
 			on system_book_info.categoryId=system_book_category.id
+			<where>
+				<if test='category!=null and category!="全部"'>
+					category=#{category}
+				</if>
+			</where>
 			limit #{from},#{pageSize}
 	</select>
 	<!-- 查询书籍数量 -->
 	<select id="bookCount" resultType="int">
-		select count(id) from system_book_info;
+		select count(system_book_info.id) from system_book_info
+			left join system_book_category
+			on system_book_info.categoryId=system_book_category.id
+			<where>
+				<if test='category!=null and category!="全部"'>
+					category=#{category}
+				</if>
+			</where>
 	</select>
 </mapper>
 
