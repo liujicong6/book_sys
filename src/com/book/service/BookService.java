@@ -12,7 +12,7 @@ import com.book.tools.MyBatisUtil;
 
 public class BookService {
 	// 每页数量
-	private final Integer PAGESIZE = 5;
+	public final Integer PAGESIZE = 3;
 	/**
 	 * 添加新的分类
 	 * @param category

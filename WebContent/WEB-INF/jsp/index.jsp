@@ -32,47 +32,33 @@
     			<div class="box-right">
     				<div class="box-title">您目前浏览的图书【搜索条件——分类：全部；书名：无】</div>
     				<div class="paging" style="border-bottom: 1px solid  #64A26F; color: #006666; ">
-    					 <span class="fr"><a href="#">首页</a>&nbsp;<a href="#">上一页</a>&nbsp;<a href="#">下一页</a>&nbsp;<a href="#">尾页</a>&nbsp;</span>
-    					 共有图书1000种，分50页显示，每页显示20个商品
+    					 ${navStr }	
+    					 共有图书${count}种，分${countPage}页显示，每页显示${pageSize}个商品
     				</div>
+    				<c:forEach items="${books}" var="book">
     				<div class="box-item">
-    					<div class="img-box"><img src="${pageContext.request.contextPath}/static/photo/fzdxl.jpg" /></div>
-    					<div class="info-box">
-    						<span style="font-size: 14px; "><a href="#">非洲的旋律</a></span><br />
-							作者：李艳玲&nbsp;&nbsp;著<br />
-							分类：旅游<br />
-							出版社：金城出版社<br />							
-							售价：￥<span style="color: #990000;">128.0</span>		<br />					
+    					<div class="img-box">
+    						<c:if test="${empty book.photo }">
+    							<img src="${pageContext.request.contextPath}/static/file/xxx.jpg" />
+    						</c:if>
+    						<c:if test="${!empty book.photo }">
+    							<img src="${pageContext.request.contextPath}/static/file/${book.photo}" />
+    						</c:if>
     					</div>
-    					<a href="cart.html" class="btn-buy">购&nbsp;&nbsp;买</a>    					
+    					<div class="info-box">
+    						<span style="font-size: 14px; ">
+    						<a href="#id=${book.id}">${book.bookName }</a></span><br />
+							作者：${book.author}&nbsp;&nbsp;著<br />
+							分类：${book.category.category }<br />
+							出版社：${book.publisher }<br />							
+							售价：￥<span style="color: #990000;">${book.price }</span>		<br />					
+    					</div>
+    					<a href="#?id=${book.id }" class="btn-buy">购&nbsp;&nbsp;买</a>    					
     					<div class="cf"></div>
     				</div>    
-    				<div class="box-item">
-    					<div class="img-box"><img src="${pageContext.request.contextPath}/static/photo/sg.jpg" /></div>
-    					<div class="info-box">
-    						<span style="font-size: 14px; "><a href="#">尸鬼</a></span><br />
-							作者：（日）小野不由美&nbsp;&nbsp;著<br />
-							分类：恐怖小说<br />
-							出版社：吉林出版集团<br />							
-							售价：￥<span style="color: #990000;">170.0</span>		<br />					
-    					</div>
-    					<a href="cart.html" class="btn-buy">购&nbsp;&nbsp;买</a>    					
-    					<div class="cf"></div>
-    				</div>    	
-    				<div class="box-item">
-    					<div class="img-box"><img src="${pageContext.request.contextPath}/static/photo/hlxj.jpg" /></div>
-    					<div class="info-box">
-    						<span style="font-size: 14px; "><a href="#">红楼小讲</a></span><br />
-							作者：周汝昌&nbsp;&nbsp;著<br />
-							分类：文学<br />
-							出版社：北京出版社<br />							
-							售价：￥<span style="color: #990000;">10.0</span><br />					
-    					</div>
-    					<a href="cart.html" class="btn-buy">购&nbsp;&nbsp;买</a>    					
-    					<div class="cf"></div>
-    				</div>  				
+  					</c:forEach>				
     				<div class="paging">
-    					 <span class="fr"><a href="#">首页</a>&nbsp;<a href="#">上一页</a>&nbsp;<a href="#">下一页</a>&nbsp;<a href="#">尾页</a>&nbsp;</span>    					
+    					 ${navStr }				
     				</div>
     			</div>
     		</div>
