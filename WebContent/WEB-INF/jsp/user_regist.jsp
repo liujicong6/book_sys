@@ -15,6 +15,11 @@
     		<div class="box" id="register">
     			<div class="title">新用户注册</div>
 <form action="" method="post" style="margin: 10px;">
+<%
+	if(request.getAttribute("error") != null){
+		out.write("<h1 style='color:red;'>"+request.getAttribute("error")+"</h1>");
+	}
+%>
 	<table cellspacing="0" class="no-border">
     	<tr>
     		<td style="text-align: right;">登录账号：</td>
@@ -34,11 +39,11 @@
     	</tr>
     	<tr>
     		<td style="text-align: right;">验证码：</td>
-    		<td><input type="text" name="code" class="txt" /></td>
+    		<td><input type="text" name="code" class="txt"  /></td>
     	</tr>
     	<tr>
     		<td>&nbsp;</td>
-    		<td><img id="img" src="images/code.jpg" />&nbsp;&nbsp;看不清？<a href="#" style="color: #64A26F;">换张图</a></td>
+    		<td><img id="img" src="${pageContext.request.contextPath}/static/image/code.jpg" />&nbsp;&nbsp;看不清？<a href="#" style="color: #64A26F;">换张图</a></td>
     	</tr>
     	<tr>
     		<td>&nbsp;</td>

@@ -1,24 +1,16 @@
 package com.book.pojo;
-
-public class User {
+public class BookUser {
 	private String userId;
 	private String userPsw;
 	private String userName;
 	private Integer role;
-	
-	public User(String userId, String userPsw, String userName, Integer role) {
-		super();
+	public BookUser() {}
+	public BookUser(String userId, String userPsw, String userName, Integer role) {
 		this.userId = userId;
 		this.userPsw = userPsw;
 		this.userName = userName;
 		this.role = role;
 	}
-	
-	public User() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
 	public String getUserId() {
 		return userId;
 	}

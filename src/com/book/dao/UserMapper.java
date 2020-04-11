@@ -13,4 +13,10 @@ public interface UserMapper {
 	 */
 	User findUserByIdAndPsw(
 			@Param("userId") String userId,@Param("userPsw") String userPsw);
+	
+	
+	User  findid(@Param("userId") String userId);
+	
+	int  ins(@Param("userId") String userId,@Param("userPsw") String userPsw,
+			@Param("userName") String userName,@Param("role") Integer role);
 }

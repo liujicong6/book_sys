@@ -122,6 +122,28 @@ public class BookService {
 			return "<span class='fr'><a href='book_mgr?currentPage=1'>首页</a>&nbsp;<a href='book_mgr?currentPage="+(currentPage-1)+"'>上一页</a>&nbsp;<a href='book_mgr?currentPage="+(currentPage+1)+"'>下一页</a>&nbsp;<a href='book_mgr?currentPage="+countPage+"'>尾页</a>&nbsp;</span>";
 		}
 	}
+	
+	
+	public  int  del(Integer id) {
+		SqlSession session=MyBatisUtil.open();
+		Integer ss=session.getMapper(BookInfoMapper.class).del(id);
+		
+		session.close();
+		return ss;
+		
+		
+		
+	}
+	
+	public  BookInfo sel(Integer id) {
+		SqlSession session=MyBatisUtil.open();
+		BookInfo se=session.getMapper(BookInfoMapper.class).sel(id);
+		session.close();
+		return se;
+		
+		
+	}
+	
 }
 
 

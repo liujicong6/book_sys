@@ -29,6 +29,10 @@ public interface BookInfoMapper {
 	 * @return
 	 */
 	Integer bookCount(@Param("category") String category);
+	
+	int del(Integer id);
+	BookInfo sel(Integer id);
+	
 }
 
 

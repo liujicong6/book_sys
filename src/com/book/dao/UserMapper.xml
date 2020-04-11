@@ -7,6 +7,17 @@
 	<select id="findUserByIdAndPsw" resultType="User">
 		select * from system_book_user where userId=#{userId} and userPsw=#{userPsw}
 	</select>
+	
+	<select id="findid" resultType="User">
+		select * from system_book_user where userId=#{userId}
+	</select>
+	
+	
+	<insert id="ins" parameterType="User">
+	insert into system_book_user(userId,userPsw,userName,role) values (#{userId},#{userPsw},
+				#{userName},#{role})
+	
+	</insert>
 </mapper>
 
 

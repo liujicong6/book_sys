@@ -31,7 +31,8 @@
 			    		<td>${book.author }</td>
 			    		<td>${book.category.category }</td>	
 			    		<td>${book.price }</td>
-			    		<td><a href="#?id=${book.id }">删除</a>&nbsp;<a href="book-edit.html?id=${book.id }">编辑</a></td>
+			    		<td><a href="${pageContext.request.contextPath}/del?id=${book.id }">删除</a>&nbsp;
+			    		<a href="${pageContext.request.contextPath}/gai?id=${book.id }">编辑</a></td>
 			    	</tr>
 			    	</c:forEach>
 			    </table>

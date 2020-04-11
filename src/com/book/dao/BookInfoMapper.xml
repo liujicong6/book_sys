@@ -39,6 +39,32 @@
 				</if>
 			</where>
 	</select>
+	
+	
+	<delete  id="del" parameterType="BookInfo">
+	
+	delete from system_book_info where id=#{id}
+	
+	</delete>
+	
+	<select id="sel" resultMap="se">
+	select book.id as bookId,bookName,author,publisher,price,cate.id as catId,category
+					from system_book_info book left join system_book_category cate
+					on book.categoryId=cate.id where book.id=#{id}
+					
+					
+					
+					</select>
+					
+					
+					<resultMap type="BookInfo" id="se">
+						<id property="id" column="id"/>
+						<association property="category" javaType="Category">
+			<id property="id" column="cid"/>	<!-- 使用结果集中的cid填充category的id属性 -->
+		</association>
+					
+					
+					</resultMap>
 </mapper>
 
 

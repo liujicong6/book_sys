@@ -1,5 +1,9 @@
+
+<%@page import="java.util.List"%>
+<%@page import="com.book.pojo.Category"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+    <%@page import="com.book.pojo.BookInfo"%>
 <!DOCTYPE HTML>
 <html>
   <head>
@@ -15,22 +19,35 @@
 			<div class="section-left">    	
 				<h2>编辑图书信息</h2>
 				<form action="book-edit.html" method="post">
+				<%
+				
+			BookInfo  book=	((BookInfo)session.getAttribute("bookInfo")); %>
 					<input type="hidden" name="bookId" value="1" />
 					<input type="hidden" name="bphotoOld" value="fzdxl.jpg" />
-					<p>图书书名：<input type="text" name="btitle" value="非洲的旋律"  /></p>
-					<p>图书作者：<input type="text" name="bauthor" value="李艳玲"  /></p>
+					<p>图书书名：<input type="text" name="btitle" value="<%=book.getBookName() %>"  /></p>
+					<p>图书作者：<input type="text" name="bauthor" value="<%=book.getAuthor() %>"  /></p>
 					<p>图书分类：
-						<select name="bcategoryid">									
-							<option value="1">地图地理</option>	
-							<option value="2">恐怖小说</option>	
-							<option value="3">文学</option>	
-							<option value="4">科普读物</option>
+						<select name="bcategoryid">		
+						<%
+				
+			List<Category> bo=	(List<Category> )session.getAttribute("categories");
+					for(Category x: bo)	{
+						
+						if(book.getCategory().getId() == x.getId()){
+							out.write("<option value='"+x.getId()+"' selected='selected'>"+x.getCategory()+"</option>");
+						}
+						else{
+							out.write("<option value='"+x.getId()+"'>"+x.getCategory()+"</option>");
+						}
+					
+					}
+					%>	
 						</select>
 					</p>
-					<p>图书售价：<input type="text" name="bprice" value="66.0" /></p>
-					<p>图书出版社：<input type="text" name="bpublisher" value="金城出版社"  /></p>  
-					<p>当前图片：<img width="150" height="90" src="photo/fzdxl.jpg" /></p> 
-					<p>图书图片：<input type="file" name="bphoto"  /></p>    				 				
+					<p>图书售价：<input type="text" name="bprice" value="<%=book.getPrice() %>" /></p>
+					<p>图书出版社：<input type="text" name="bpublisher" value="<%=book.getPublisher() %>"  /></p>  
+					<p>当前图片：<img width="150" height="90" src="${pageContext.request.contextPath}/static/photo/<%=book.getPhoto() %>" /></p> 
+					<p>图书图片：<input type="file" name="photo"  /></p>    				 				
 					<p><input type="submit" value=" 修 改 "  />&nbsp;</p>					
 				</form>
 			</div>
